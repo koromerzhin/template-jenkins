@@ -8,7 +8,7 @@ networks:
 volumes:
   home:
 services:
-  apache:
+  www:
     image: jenkins/jenkins:lts
     volumes:
       - home:/var/jenkins_home
