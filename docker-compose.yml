@@ -1,0 +1,24 @@
+version: "3.4"
+networks:
+  proxynetwork:
+    external: true
+  net:
+    driver: overlay
+    attachable: true
+volumes:
+  home:
+services:
+  apache:
+    image: jenkins/jenkins:lts
+    volumes:
+      - home:/var/jenkins_home
+    networks:
+      - net
+      - proxynetwork
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.jenkins.rule=Host(`jenkins.traefik.me`)"
+        - "traefik.http.routers.jenkins-tls.tls.domains[0].main=jenkins.traefik.me"
+        - "traefik.http.routers.jenkins-tls.tls.domains[0].sans=jenkins-*.traefik.me"
+        - "traefik.http.services.jenkins.loadbalancer.server.port=8080"
