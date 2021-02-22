@@ -100,6 +100,7 @@ else
 endif
 
 install: node_modules ## Installation
+	@make docker image-pull -i
 	@make docker deploy -i
 
 sleep: ## sleep
