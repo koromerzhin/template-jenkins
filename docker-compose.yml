@@ -18,7 +18,7 @@ services:
     deploy:
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.jenkins.rule=Host(`jenkins.traefik.me`)"
+        - "traefik.http.routers.jenkins.rule=HostRegexp(`jenkins.traefik.me`, `jenkins.{ip:.*}.traefik.me`)"
         - "traefik.http.routers.jenkins-tls.tls.domains[0].main=jenkins.traefik.me"
         - "traefik.http.routers.jenkins-tls.tls.domains[0].sans=jenkins-*.traefik.me"
         - "traefik.http.services.jenkins.loadbalancer.server.port=8080"
